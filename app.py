@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-
+import sqlite3
 
 app=Flask(__name__)
 
@@ -9,16 +9,16 @@ def helloworld():
 
 @app.route("/color")
 def color():
-    conn = sqlite.connect("colors.db")
+    conn = sqlite3.connect("color.db")
     c = conn.cursor()
-    c.execute("SELECT * FROM colors WHERE id = 1;")
-    py_color = c.fetchome()
+    c.execute("SELECT * FROM color WHERE id = 1")
+    py_color = c.fetchone()
 
     c.close()
 
     print(py_color)
 
-    return render_template("colors.html")
+    return render_template("template/colors.html")
 
 @app.route("/template")
 def template():
