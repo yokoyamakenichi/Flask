@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-import sqlite3
+import sqlite3, random
 
 app=Flask(__name__)
 
@@ -7,18 +7,28 @@ app=Flask(__name__)
 def helloworld():
     return "<h1>Hello World</h1>"
 
+@app.route("/color1")
+def color1():
+    py_color = "青"
+    return render_template("color copy.html", color =py_color)
+
 @app.route("/color")
 def color():
     conn = sqlite3.connect("color.db")
     c = conn.cursor()
-    c.execute("SELECT * FROM color WHERE id = 1")
-    py_color = c.fetchone()
+#    c.execute("SELECT * FROM colors WHERE id = 1;")
+    c.execute("SELECT * FROM colors;")
+
+#    py_color = c.fetchone()
+    py_color = c.fetchall()
+    py_color = random.choice(py_color)
 
     c.close()
 
     print(py_color)
 
-    return render_template("template/colors.html")
+    return render_template("color.html", color = py_color)
+
 
 @app.route("/template")
 def template():
