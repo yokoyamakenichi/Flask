@@ -25,10 +25,21 @@ def template():
     py_name = "sunabaco"
     return render_template("index.html", name=py_name)
 
-@app.route("/<name>")
-def greet(name):
-    return name + "さん、こんにちは！"
+#@app.route("/<name>")
+#def greet(name):
+#    return name + "さん、こんにちは！"
+
+# ToDo
+# タスクの追加機能
+# 入門フォーム表示
+@app.route("/add", methods=["GET"])
+def add_get():
+    return render_template("add.html")
+
+# 
+@app.route("/add", methods=["POST"])
+def add_post():
+    return render_template("add.html")
 
 if __name__=="__main__":
- 
     app.run(debug=True)
